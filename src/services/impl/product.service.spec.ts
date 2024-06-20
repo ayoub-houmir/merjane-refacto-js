@@ -55,4 +55,32 @@ describe('ProductService Tests', () => {
 		});
 		expect(result).toEqual(product);
 	});
+
+	it('should handle out of stock notification for FLASHSALE product', async () => {
+		const d = 24 * 60 * 60 * 1000;
+		const productFlash: Product = {
+			id: 2,
+			leadTime: 0,
+			available: 0,
+			type: 'FLASHSALE',
+			name: 'simple test',
+			expiryDate:  null,
+			seasonStartDate: null,
+			seasonEndDate: null,
+		};
+		await databaseMock.insert(products).values(productFlash);
+
+		// WHEN
+		await productService.handleFlashSalesProduct(productFlash);
+
+		// THEN
+		expect(productFlash.available).toBe(0);
+		expect(productFlash.leadTime).toBe(0);
+		expect(notificationServiceMock.sendOutOfStockNotification).toHaveBeenCalledWith(productFlash.name);
+		const result = await databaseMock.query.products.findFirst({
+			where: (product, {eq}) => eq(product.id, productFlash.id),
+		});
+		console.log('result', result);
+		expect(result).toEqual(productFlash);
+	});
 });

@@ -7,10 +7,10 @@ import {
 export const products = pgTable('products', {
 	id: serial('id').primaryKey(),
 	leadTime: integer('lead_time').notNull(),
-	available: integer('available').notNull(),
+	available: integer('available').notNull(), // can be used to define max of sales of 'flash' to avoid add new rows on db
 	type: varchar('type', {length: 256}).notNull(),
 	name: varchar('name', {length: 256}).notNull(),
-	expiryDate: date('expiry_date', {mode: 'date'}),
+	expiryDate: date('expiry_date', {mode: 'date'}), // can be used to define last date of 'flash'
 	seasonStartDate: date('season_start_date', {mode: 'date'}),
 	seasonEndDate: date('season_end_date', {mode: 'date'}),
 });

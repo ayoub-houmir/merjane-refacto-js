@@ -5,7 +5,7 @@
   "exports": "./main.js",
   "scripts": {
     "dev": "cross-env CONFIG_PATH=\".env.dev\" tsx watch src/main.ts",
-    "test": "pnpm test:unit && pnpm test:integration",
+    "test": "npm test:unit && npm test:integration",
     "test:unit": "cross-env CONFIG_PATH=\".env.dev\" vitest -c vitest.unit.config.ts",
     "do:test:integration": "cross-env CONFIG_PATH=\".env.dev\" vitest -c vitest.integration.config.ts",
     "test:integration": "sh run-integration.sh",

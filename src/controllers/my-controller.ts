@@ -77,6 +77,11 @@ export const myController = fastifyPlugin(async server => {
 
 						break;
 					}
+
+					case 'FLASHSALE': {
+						await ps.handleFlashSalesProduct(p);
+						break;
+					}
 				}
 			}
 		}
